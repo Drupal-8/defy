@@ -1,0 +1,24 @@
+<?php
+/**
+ * @file
+ * Contains theme override and preprocess functions.
+ */
+
+
+
+/**
+ * Implements hook_preprocess_HOOK() for page templates.
+ */
+function defy_preprocess_page(&$variables) {
+
+	// Normally we could attach libraries via hook_page_alter(), but when the
+	// database is inactive it's not called so we add them here.
+	$libraries = array(
+		'#attached' => array(
+			'library' => array(
+				'defy/defy.corescripts',
+			),
+		),
+	);
+	drupal_render($libraries);
+}

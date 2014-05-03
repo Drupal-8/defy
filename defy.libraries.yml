@@ -1,0 +1,6 @@
+defy.corescripts:
+  version: 1.0
+  js:
+    js/script.js: {}
+  dependencies:
+    - core/jquery

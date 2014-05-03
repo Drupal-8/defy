@@ -1,0 +1,20 @@
+name: Defy
+type: theme
+description: A minimal forward-thinking theme for Drupal 8
+version: 0.1
+core: 8.x
+engine: twig
+screenshot: img/screenshot.png
+
+stylesheets:
+  all:
+  - css/style.css
+
+# Remove a CSS file:
+stylesheets-remove:
+  - normalize.css
+
+regions:
+  content: 'Content'
+  sidebar: 'Sidebar'
+  footer: 'Footer'
