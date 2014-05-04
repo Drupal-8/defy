@@ -22,3 +22,23 @@ function defy_preprocess_page(&$variables) {
 	);
 	drupal_render($libraries);
 }
+
+function defy_css_alter(&$css) {
+
+	// Rip out all CSS from head
+  foreach ($css as $key => $value) {
+    if ($value['group'] != CSS_THEME) {
+      $exclude[$key] = FALSE;
+    }
+  }
+  $css = array_diff_key($css, $exclude);
+
+
+	// foreach ($css as $key => $value){
+	// 	print $value['data'];
+	// 	//unset($value['data']);
+	// 	unset( $css['http://drup8.dev'. $value['data']] );
+
+	// }
+
+}
