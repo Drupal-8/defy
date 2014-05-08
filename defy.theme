@@ -6,6 +6,20 @@
 
 
 
+function defy_html_head_alter(&$head_elements) {
+  unset($head_elements['system_meta_content_type']);
+  unset($head_elements['system_meta_generator']);
+  unset($head_elements['HandheldFriendly']);
+  unset($head_elements['MobileOptimized']);
+  unset($head_elements['viewport']);
+
+  print_r($head_elements);
+
+}
+
+
+
+
 /**
  * Implements hook_preprocess_HOOK() for page templates.
  */
@@ -25,20 +39,15 @@ function defy_preprocess_page(&$variables) {
 
 function defy_css_alter(&$css) {
 
-	// Rip out all CSS from head
+	// Clean out all core CSS for anonymous users
   foreach ($css as $key => $value) {
-    if ($value['group'] != CSS_THEME) {
+    if ($value['group'] != 100) {
       $exclude[$key] = FALSE;
     }
   }
-  $css = array_diff_key($css, $exclude);
-
-
-	// foreach ($css as $key => $value){
-	// 	print $value['data'];
-	// 	//unset($value['data']);
-	// 	unset( $css['http://drup8.dev'. $value['data']] );
-
-	// }
+  $account = \Drupal::currentUser();
+  if ($account->id() == 0) {
+    $css = array_diff_key($css, $exclude);
+  }
 
 }
