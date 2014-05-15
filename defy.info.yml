@@ -18,3 +18,4 @@ regions:
   content: 'Content'
   sidebar: 'Sidebar'
   footer: 'Footer'
+  admin_actions: 'Admin Actions'

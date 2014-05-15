@@ -13,17 +13,26 @@ function defy_html_head_alter(&$head_elements) {
   unset($head_elements['MobileOptimized']);
   unset($head_elements['viewport']);
 
-  print_r($head_elements);
+	global $base_root;
+  unset($head_elements['drupal_add_html_head_link:alternate:'.$base_root.'/rss.xml']);
+
+  $head_elements['drupal_add_html_head_link:shortcut icon:'.$base_root.'/core/misc/favicon.ico']['#attributes']['href'] = $base_root.'/'.drupal_get_path('theme',$GLOBALS['theme']).'/img/favicon.ico';
+//  print_r($head_elements);
 
 }
 
-
+function defy_page_alter(&$page) {
+//s	print_r($variables);
+	unset($page['page_top']['toolbar']);
+}
 
 
 /**
  * Implements hook_preprocess_HOOK() for page templates.
  */
 function defy_preprocess_page(&$variables) {
+
+
 
 	// Normally we could attach libraries via hook_page_alter(), but when the
 	// database is inactive it's not called so we add them here.
@@ -45,9 +54,6 @@ function defy_css_alter(&$css) {
       $exclude[$key] = FALSE;
     }
   }
-  $account = \Drupal::currentUser();
-  if ($account->id() == 0) {
-    $css = array_diff_key($css, $exclude);
-  }
+  $css = array_diff_key($css, $exclude);
 
 }
